@@ -1,4 +1,5 @@
 import express, { Request, Response, NextFunction } from "express";
+import { authMiddleware } from "../middleware/auth.middleware";
 
 const post__products = async (
   req: Request,
@@ -6,7 +7,7 @@ const post__products = async (
   next: NextFunction,
 ) => {
   try {
-    next();
+    res.status(201).json({});
   } catch (err) {
     next(err);
   }
@@ -18,7 +19,7 @@ const get__products = async (
   next: NextFunction,
 ) => {
   try {
-    next();
+    res.status(200).json({});
   } catch (err) {
     next(err);
   }
@@ -30,7 +31,7 @@ const get__product_$id = async (
   next: NextFunction,
 ) => {
   try {
-    next();
+    res.status(200).json({});
   } catch (err) {
     next(err);
   }
@@ -42,7 +43,7 @@ const put__product_$id = async (
   next: NextFunction,
 ) => {
   try {
-    next();
+    res.status(200).json({});
   } catch (err) {
     next(err);
   }
@@ -54,15 +55,18 @@ const delete__product_$id = async (
   next: NextFunction,
 ) => {
   try {
-    next();
+    res.status(204).send();
   } catch (err) {
     next(err);
   }
 };
 
 const router = express.Router();
+router.use(authMiddleware);
 router.post("/", post__products);
 router.get("/", get__products);
 router.get("/:id", get__product_$id);
 router.put("/:id", put__product_$id);
 router.delete("/:id", delete__product_$id);
+
+export default router;
