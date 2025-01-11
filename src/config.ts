@@ -1,7 +1,7 @@
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 
 if (process.env.DOTENV_PATH) {
-  dotenv.config({ path: process.env.DOTENV_PATH });  
+  dotenv.config({ path: process.env.DOTENV_PATH });
 }
 
 const contextApi = "/api";
@@ -14,4 +14,3 @@ const config = {
 };
 
 export default config;
-

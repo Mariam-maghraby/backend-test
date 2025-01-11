@@ -1,11 +1,17 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
 import config, { routeConfig } from "./config";
+import mongoose from "mongoose";
 import productsRoute from "./routers/products.router";
 import authRoute from "./routers/auth.router";
 
 const app = express();
 const PORT = config.port || 3000;
+const MONGO_URI = process.env.MONGO_URI as string;
+
+mongoose.connect(MONGO_URI).then(() => {
+  console.log("Connected to MongoDB successfully!");
+});
 
 // Middleware
 app.use(cors());

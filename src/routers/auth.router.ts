@@ -12,7 +12,7 @@ const post__auth_login = async (
     // const user = users[username] ;
     const user = { username: "admin", password: "admin" };
     if (user.username === username && user.password === password) {
-      const token = generateAccessToken({username: req.body.username});
+      const token = generateAccessToken({ username: req.body.username });
       res.json(token);
     } else {
       res.status(401).json("Invalid username or password");
