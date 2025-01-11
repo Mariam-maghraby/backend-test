@@ -1,28 +1,15 @@
-import express, { Request, Response, NextFunction } from "express";
-import { generateAccessToken } from "../utils/tokenUtils";
-
-const post__auth_login = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  try {
-    const { username, password } = req.body;
-    //TODO: Implement fetching user from database
-    // const user = users[username] ;
-    const user = { username: "admin", password: "admin" };
-    if (user.username === username && user.password === password) {
-      const token = generateAccessToken({ username: req.body.username });
-      res.json(token);
-    } else {
-      res.status(401).json("Invalid username or password");
-    }
-  } catch (err) {
-    next(err);
-  }
-};
+import express from "express";
+import {
+  post__auth_login,
+  post__auth_signup,
+} from "../controllers/users.controller";
+import {
+  validateUser,
+  validateUserCreate,
+} from "../middleware/userValidation.middleware";
 
 const router = express.Router();
-router.post("/login", post__auth_login);
+router.post("/login", validateUser, post__auth_login);
+router.post("/signup", validateUserCreate, post__auth_signup);
 
 export default router;
