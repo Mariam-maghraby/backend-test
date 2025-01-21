@@ -1,17 +1,23 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
-import config, { routeConfig } from "./config";
+import { PORT, routeConfig } from "./config";
 import mongoose from "mongoose";
 import productsRoute from "./routers/products.router";
 import authRoute from "./routers/auth.router";
+import swaggerJsDoc from "swagger-jsdoc";
+import { swaggerOptions } from "./utils/swaggerUtils";
+import swaggerUi from "swagger-ui-express";
 
 const app = express();
-const PORT = config.port || 3000;
 const MONGO_URI = process.env.MONGO_URI as string;
 
 mongoose.connect(MONGO_URI).then(() => {
   console.log("Connected to MongoDB successfully!");
 });
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+console.log("swagger", swaggerDocs);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // Middleware
 app.use(cors());

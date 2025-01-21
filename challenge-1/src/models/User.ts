@@ -1,12 +1,5 @@
 import mongoose from "mongoose";
 
-// export class User {
-//   username?: string;
-//   password?: string;
-//   email?: string;
-//   role?: string;
-// }
-
 const userSchema = new mongoose.Schema({
   username: {
     type: String,

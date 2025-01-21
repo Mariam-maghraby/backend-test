@@ -13,4 +13,6 @@ const config = {
   port: parseInt(process.env.PORT as string),
 };
 
+export const PORT = config.port || 3000;
+
 export default config;
